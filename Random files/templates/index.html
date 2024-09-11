@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <title>Mock Interview Platform</title>
+</head>
+<body>
+    <h1>Mock Interview Platform</h1>
+    <form id="interview-form" enctype="multipart/form-data">
+        <label for="job-title">Job Title:</label>
+        <input type="text" id="job-title" name="job_title" required>
+        <br>
+        <label for="resume">Upload Resume:</label>
+        <input type="file" id="resume" name="resume" accept=".pdf" required>
+        <br>
+        <button type="submit">Start Interview</button>
+    </form>
+    <div id="question-section">
+        <p id="question"></p>
+        <button id="answer-button">Record Answer</button>
+    </div>
+    <script>
+        document.getElementById('interview-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            fetch('/start_interview', {
+                method: 'POST',
+                body: formData
+            }).then(response => response.json())
+              .then(data => {
+                  console.log(data.message);
+                  fetchQuestion();
+              });
+        });
+
+        function fetchQuestion() {
+            fetch('/get_question')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('question').textContent = data.question;
+                });
+        }
+
+        document.getElementById('answer-button').addEventListener('click', function() {
+            // Code to record and submit the answer
+        });
+    </script>
+</body>
+</html>

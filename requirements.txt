@@ -1,0 +1,12 @@
+Streamlit
+opencv-python
+numpy
+pillow
+tensorflow
+torch
+torchvision
+torchaudio
+transformers
+# //streamlit_audio_recorder 
+SpeechRecognition
+pyaudio

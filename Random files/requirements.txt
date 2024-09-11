@@ -1,0 +1,11 @@
+streamlit
+fpdf
+SpeechRecognition
+pyaudio
+google-generativeai  # Ensure this version is correct; update based on the latest release
+gtts
+pygame
+faster-whisper # Ensure this version is correct; update based on the latest release
+transformers
+opencv-python
+mediapipe

@@ -1,0 +1,34 @@
+from flask import Flask, render_template, request, jsonify
+import os
+import subprocess
+
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/start_interview', methods=['POST'])
+def start_interview():
+    job_title = request.form.get('job_title')
+    resume = request.files.get('resume')
+
+    if job_title and resume:
+        # Save the resume file
+        resume_path = os.path.join('uploads', resume.filename)
+        resume.save(resume_path)
+
+        # Call your existing interview start logic here
+        # E.g., subprocess.run(['python', 'interview_script.py', job_title, resume_path])
+
+        return jsonify(message='Interview started successfully')
+    return jsonify(message='Error: Job title or resume missing'), 400
+
+@app.route('/get_question')
+def get_question():
+    # Replace this with your logic to fetch the current question
+    question = "What is your greatest strength?"
+    return jsonify(question=question)
+
+if __name__ == '__main__':
+    app.run(debug=True)
